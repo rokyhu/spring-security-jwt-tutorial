@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.model.Role;
 import com.example.demo.model.VehicleAppUser;
 import com.example.demo.model.Vehicle;
 import com.example.demo.repository.UserRepository;
@@ -7,6 +8,8 @@ import com.example.demo.repository.VehicleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -19,9 +22,12 @@ public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository users;
 
+    private final PasswordEncoder passwordEncoder;
+
     public DataInitializer(VehicleRepository vehicles, UserRepository users) {
         this.vehicles = vehicles;
         this.users = users;
+        passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
@@ -35,14 +41,14 @@ public class DataInitializer implements CommandLineRunner {
         users.save(VehicleAppUser.builder()
             .username("user")
             .password("password")
-            .roles(Arrays.asList("ROLE_USER"))
+            .roles(Arrays.asList(Role.ROLE_USER))
             .build()
         );
 
         users.save(VehicleAppUser.builder()
             .username("admin")
             .password("password")
-            .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
+            .roles(Arrays.asList(Role.ROLE_USER, Role.ROLE_ADMIN))
             .build()
         );
         log.debug("printing all users...");
