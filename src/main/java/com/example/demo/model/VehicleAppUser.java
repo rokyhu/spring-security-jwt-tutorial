@@ -27,6 +27,5 @@ public class VehicleAppUser {
     // roles of the user (ADMIN, USER,..)
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
-    @Enumerated(value = EnumType.STRING)
-    private List<Role> roles = new ArrayList<>();
+    private List<String> roles = new ArrayList<>();
 }

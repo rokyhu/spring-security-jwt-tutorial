@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.model.Role;
 import com.example.demo.model.VehicleAppUser;
 import com.example.demo.model.Vehicle;
 import com.example.demo.repository.UserRepository;
@@ -41,14 +40,14 @@ public class DataInitializer implements CommandLineRunner {
         users.save(VehicleAppUser.builder()
             .username("user")
             .password(passwordEncoder.encode("password"))
-            .roles(Arrays.asList(Role.ROLE_USER))
+            .roles(Arrays.asList("ROLE_USER"))
             .build()
         );
 
         users.save(VehicleAppUser.builder()
             .username("admin")
             .password(passwordEncoder.encode("password"))
-            .roles(Arrays.asList(Role.ROLE_USER, Role.ROLE_ADMIN))
+            .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
             .build()
         );
         log.debug("printing all users...");
